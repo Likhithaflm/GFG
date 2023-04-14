@@ -1,0 +1,81 @@
+import java.util.*;
+
+public class kruskal {
+	static class edge{
+	    int src;
+		int dest;
+		int weight;
+		
+		edge(int src,int dest,int weight)
+		{
+			this.src=src;
+			this.dest=dest;
+			this.weight=weight;
+		}
+	}
+	
+	static class Sortbyweight implements Comparator<edge> {
+		 
+	    // Method
+	    // Sorting in ascending order of roll number
+	    public int compare(edge a, edge b)
+	    {
+	 
+	        return a.weight - b.weight;
+	    }
+	}
+	static int union(int v,int parent[])
+	{
+		if(parent[v]==v)
+		{
+			return v;
+		}
+		
+		return union(parent[v],parent);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int parent[]=new int[100];
+		for(int i=0;i<100;i++)
+		{
+			parent[i]=i;
+		}
+		Scanner sc=new Scanner(System.in);
+		int v=sc.nextInt();
+		int e=sc.nextInt();
+		
+		edge graph[]=new edge[e];
+		edge MST[]=new edge[e-1];
+		for(int i=0;i<e;i++)
+		{
+			int v1=sc.nextInt();
+			int v2=sc.nextInt();
+			int w=sc.nextInt();
+			graph[i]=new edge(v1,v2,w);
+		}
+		Arrays.sort(graph,new Sortbyweight());
+		
+		int cnt=0;
+		int idx=0;
+		while(cnt<v-1&&idx<e)
+		{
+			int v1=graph[idx].src;
+			int v2=graph[idx].dest;
+			if(parent[v1]!=parent[v2])
+			{
+				parent[v2]=union(v1,parent);
+				MST[cnt]=graph[idx];
+				cnt++;
+			}
+			idx++;
+		}
+		int sum=0;
+		for(int i=0;i<v-1;i++)
+		{
+			System.out.println(MST[i].src+"->"+MST[i].dest);
+			sum+=MST[i].weight;
+		}
+		System.out.println("The sum of weight :"+sum);
+	}
+
+}
