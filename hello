@@ -5,3 +5,11 @@ int main() {
     return 0;
 }
 print("HelloWorld!!")
+
+//JAVA 
+class Hello{
+public static void main(String args[]){
+System.out.println("Hello World");
+return 0;
+}
+
